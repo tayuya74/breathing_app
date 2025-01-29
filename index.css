@@ -1,0 +1,36 @@
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to bottom left, #2bb3ea, #ffffff);
+  font-family: Arial, sans-serif;
+}
+.start-button {
+  width: 200px;
+  height: 200px;
+  font-size: 40px;
+  background-color: transparent;
+  color: #2e8ece;
+  border: 2px solid #2b95db;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  justify-content: center;
+  align-items: center;
+}
+.start-button:hover {
+  border-color: #005f99;
+  color: #005f99;
+}
+.start-button-active {
+  width: 300px;
+  height: 300px;
+}
+.start-button span {
+  font-size: 20px;
+}
