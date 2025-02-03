@@ -7,12 +7,15 @@
 </head>
 <body>
   <div class="container">
-    <select id="time-range">
+    <select id="time-range" class="time-range active">
       <option value="1">1 минута - 3 цикла</option>
       <option value="3">3 минуты - 9 циклов</option>
     </select>
 
-    <button class="start-button">Старт</button>
+		<div class="btn_wrap">
+			<button class="start-button">старт</button>
+		</div>
+		<button class="stop-button">стоп</button>
   </div>
 
   <script src="index.js"></script>

@@ -1,17 +1,19 @@
 document.addEventListener("DOMContentLoaded", function () {
   const button = document.querySelector(".start-button");
+	const stopButton = document.querySelector(".stop-button");
   const timeRange = document.getElementById("time-range");
-	let active = true;
+	let canStart = true;
+	let countdown
 
   button.addEventListener("click", function () {
-
 		const selectedTime = parseInt(timeRange.value);
     const cycles = Math.floor(selectedTime * 60 / 19); // 19 секунд на один цикл (4+7+8)
-    if (active) {
+    if (canStart) {
 			startBreathingCycle(cycles);
 		}
-		timeRange.style.display="none"
-		active = false;
+		timeRange.classList.remove("active");
+		stopButton.classList.add("active");
+		canStart = false;
   });
 
   function startBreathingCycle(cycles) {
@@ -29,14 +31,14 @@ document.addEventListener("DOMContentLoaded", function () {
 			});
 		} else {
 			resetButton();
-			active = true;
+			canStart = true;
 		}
   }
 
   function runTimer(seconds, text, callback) {
     let timer = seconds;
     button.innerHTML = `<span>${text}</span> ${timer}`;
-    let countdown = setInterval(() => {
+    countdown = setInterval(() => {
 			timer--;
 			if (timer >= 0) {
 				button.innerHTML = `<span>${text}</span> ${timer}`;
@@ -50,6 +52,17 @@ document.addEventListener("DOMContentLoaded", function () {
   function resetButton() {
     button.classList.remove("start-button-active");
     button.textContent = "Старт";
-		timeRange.style.display="initial"
+		timeRange.classList.add("active");
+		stopButton.classList.remove("active");
   }
+
+	function stopBreathing() {
+		clearInterval(countdown);
+		resetButton();
+		canStart = true;
+		button.classList.remove("start-button-inhale");
+		button.classList.remove("start-button-exhale");
+	}
+
+	stopButton.addEventListener("click", stopBreathing);
 });
