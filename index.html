@@ -4,21 +4,24 @@
     <meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>4-7-8 Breathing App</title>
-    <link rel="stylesheet" href="index.css">
 		<link href="https://fonts.googleapis.com/css2?family=Material+Icons"
-      rel="stylesheet">
+		rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-      rel="stylesheet">
+		rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
   <div class="container">
 
 		<button class="theme-toggle-button material-symbols-outlined">light_mode</button>
 
-    <select id="time-range" class="time-range active">
-      <option value="1">1 минута - 3 цикла</option>
-      <option value="3">3 минуты - 9 циклов</option>
-    </select>
+		<div class="dropdown active">
+			<input placeholder="выберите продолжительность" readonly>
+			<ul id="time-range" class="options">
+				<li class="option">1 минута - 3 цикла</li>
+				<li class="option">3 минуты - 9 циклов</li>
+			</ul>
+		</div>
 
 		<div class="btn_wrap">
 			<button class="start-button">старт</button>
