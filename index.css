@@ -40,15 +40,15 @@ ul {
 .dropdown::before {
   content: "";
   position: absolute;
-  right: 20px;
-  top: 24px;
-  z-index: 9999;
+  right: 10px;
+  top: 50%;
+	z-index: 9999;
   width: 12px;
   height: 12px;
   border: 2px solid grey;
   border-top: transparent;
   border-right: transparent;
-  transform: rotate(-45deg);
+  transform: translateY(-50%) rotate(-45deg);
   pointer-events: none;
   transition: all 0.3s linear;
 }
@@ -63,7 +63,6 @@ ul {
 	background: transparent;
   box-shadow: 0 10px 25px rgba(124, 130, 141, 0.2);
   font-size: 16px;
-  position: absolute;
   top: 0;
   left: 0;
   user-select: none;
@@ -113,7 +112,7 @@ ul {
   transform: translateY(0);
 }
 .dropdown.opened::before {
-  transform: rotate(-225deg);
+  transform: translateY(-50%) rotate(-225deg);
   top: 30px;
 }
 /* timer */
@@ -207,4 +206,53 @@ body.dark-mode .dropdown input::placeholder {
 body.dark-mode .start-button:hover {
   border-color: #cccccc;
   color: #cccccc;
+}
+/*мобильная верстка*/
+@media (max-width: 768px) {
+	body {
+		padding: 1em;
+	}
+	.container {
+		gap: 1.5em;
+	}
+	.dropdown {
+    width: 100%;
+    height: auto;
+    box-shadow: none;
+  }
+  .dropdown input {
+		position: relative;
+		min-width: 260px;
+    padding: 16px;
+    font-size: 14px;
+		text-align: center;
+  }
+  .dropdown .options {
+    font-size: 16px;
+    padding: 4px;
+  }
+  .btn_wrap {
+    width: 100%;
+    height: auto;
+  }
+  .start-button {
+    width: 150px;
+    height: 150px;
+    font-size: 30px;
+  }
+  .start-button:after {
+    inset: 0;
+    border-width: 1px;
+  }
+  .stop-button {
+    width: 80px;
+    height: 40px;
+    font-size: 20px;
+  }
+  .theme-toggle-button {
+    font-size: 24px;
+  }
+  .timer {
+    font-size: 30px;
+  }
 }
