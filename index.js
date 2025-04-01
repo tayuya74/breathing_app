@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const button = document.querySelector(".start-button");
+  const startButton = document.querySelector(".start-button");
 	const stopButton = document.querySelector(".stop-button");
 	const themeToggleButton = document.querySelector(".theme-toggle-button");
 	let canStart = false;
@@ -9,6 +9,55 @@ document.addEventListener("DOMContentLoaded", function () {
 	const input = document.querySelector('input');
 	const listOfOptions = document.querySelectorAll('.option');
 	const body = document.body;
+
+	// переключение языка начало
+	const translations = {
+		en: {
+			start: "start",
+			stop: "stop",
+			selectDuration: "select duration",
+			option1: "1 minute - 3 cycles",
+			option2: "3 minutes - 9 cycles",
+			inhale: "inhale",
+			exhale: "exhale",
+			hold: "hold",
+		},
+		ru: {
+			start: "старт",
+			stop: "стоп",
+			selectDuration: "выберите продолжительность",
+			option1: "1 минута - 3 цикла",
+			option2: "3 минуты - 9 циклов",
+			inhale: "вдох",
+			exhale: "выдох",
+			hold: "задержка",
+		},
+	};
+	const languageToggleButton= document.querySelector(".language-toggle-button");
+	const options = document.querySelectorAll(".option");
+	let language = "en";
+
+  // Функция для обновления текста на странице
+  function updateLanguage(language) {
+    startButton.textContent = translations[language].start;
+    stopButton.textContent = translations[language].stop;
+    input.placeholder = translations[language].selectDuration;
+    options[0].textContent = translations[language].option1;
+    options[1].textContent = translations[language].option2;
+  }
+
+	  // Обработчик переключения языка
+		languageToggleButton.addEventListener("click", function () {
+			language = language === "ru" ? "en" : "ru";
+			updateLanguage(language);
+			languageToggleButton.textContent = language.toUpperCase();
+		});
+
+		// Установить начальный язык
+		updateLanguage(language);
+
+	// переключение языка конец
+
 // basic toggle (open/close) function
 // "classList.toggle(className)" toggles 'opened' class
 	function toggleDropdown(event) {
@@ -40,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // dropdown toggle
 	dropdown.addEventListener('click', toggleDropdown);
 
-  button.addEventListener("click", function () {
+  startButton.addEventListener("click", function () {
 		const selectedTime = parseInt(input.value);
     const cycles = Math.floor(selectedTime * 60 / 19); // 19 секунд на один цикл (4+7+8)
     if (canStart) {
@@ -75,14 +124,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function startBreathingCycle(cycles) {
     if (cycles > 0) {
-			button.classList.add("start-button-inhale");
-			runTimer(4, "Вдох", () => {
-				runTimer(7, "Задержка", () => {
-					button.classList.remove("start-button-inhale");
-					button.classList.add("start-button-exhale");
-					runTimer(8, "Выдох", () => {
+			startButton.classList.add("start-button-inhale");
+			runTimer(4, translations[language].inhale, () => {
+				runTimer(7, translations[language].hold, () => {
+					startButton.classList.remove("start-button-inhale");
+					startButton.classList.add("start-button-exhale");
+					runTimer(8, translations[language].exhale, () => {
 						startBreathingCycle(cycles - 1);
-						button.classList.remove("start-button-exhale");
+						startButton.classList.remove("start-button-exhale");
 					});
 				});
 			});
@@ -93,11 +142,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function runTimer(seconds, text, callback) {
     let timer = seconds;
-    button.innerHTML = `<span>${text}</span> ${timer}`; //для отображения цикла и времени
+    startButton.innerHTML = `<span>${text}</span> ${timer}`; //для отображения цикла и времени
     countdown = setInterval(() => {
 			timer--;
 			if (timer >= 0) {
-				button.innerHTML = `<span>${text}</span> ${timer}`; //для отображения цикла и времени
+				startButton.innerHTML = `<span>${text}</span> ${timer}`; //для отображения цикла и времени
 			} else {
 				clearInterval(countdown);
 				callback();
@@ -106,8 +155,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function resetButton() {
-    button.classList.remove("start-button-active");
-    button.textContent = "Старт";
+    startButton.classList.remove("start-button-active");
+    startButton.textContent = "Старт";
 		dropdown.classList.add("active");
 		stopButton.classList.remove("active");
   }
@@ -115,8 +164,8 @@ document.addEventListener("DOMContentLoaded", function () {
 	function stopBreathing() {
 		clearInterval(countdown);
 		resetButton();
-		button.classList.remove("start-button-inhale");
-		button.classList.remove("start-button-exhale");
+		startButton.classList.remove("start-button-inhale");
+		startButton.classList.remove("start-button-exhale");
 	}
 
 	stopButton.addEventListener("click", stopBreathing);
