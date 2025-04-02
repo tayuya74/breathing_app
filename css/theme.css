@@ -1,0 +1,23 @@
+body.dark-mode {
+  background: linear-gradient(to bottom left, #1a1a1a, #797878);
+  color: #ffffff;
+}
+.theme-toggle-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+	font-size: 32px;
+}
+body.dark-mode .start-button,
+body.dark-mode .stop-button,
+body.dark-mode .options,
+body.dark-mode .dropdown input,
+body.dark-mode .dropdown input::placeholder {
+  border-color: #ffffff;
+  color: #ffffff;
+}
+body.dark-mode .start-button:hover {
+  border-color: #cccccc;
+  color: #cccccc;
+}

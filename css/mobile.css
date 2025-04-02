@@ -1,0 +1,40 @@
+@media (max-width: 768px) {
+	body {
+		padding: 1em;
+	}
+	.container {
+		gap: 1.5em;
+	}
+	.dropdown {
+    width: 100%;
+    height: auto;
+    box-shadow: none;
+  }
+  .dropdown input {
+		position: relative;
+		min-width: 260px;
+    padding: 16px;
+    font-size: 14px;
+		text-align: center;
+  }
+  .dropdown .options {
+    font-size: 16px;
+    padding: 4px;
+  }
+  .btn_wrap {
+    width: 100%;
+    height: auto;
+  }
+  .stop-button {
+		margin-top: 3.5em;
+    width: 80px;
+    height: 40px;
+    font-size: 20px;
+  }
+  .theme-toggle-button {
+    font-size: 24px;
+  }
+  .timer {
+    font-size: 30px;
+  }
+}
