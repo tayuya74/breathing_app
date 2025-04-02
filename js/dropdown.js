@@ -1,6 +1,7 @@
 const dropdown = document.querySelector('.dropdown');
 const input = document.querySelector('input');
 const listOfOptions = document.querySelectorAll('.option');
+let selectedOptionId
 
 // "classList.toggle(className)" toggles 'opened' class
 function toggleDropdown(event) {
@@ -11,8 +12,11 @@ function toggleDropdown(event) {
 // used "event.currentTarget" to specify the selected option
 // after option is chosen, its "textContent" value being copied to input's value
 function selectOption(event) {
-	input.value = event.currentTarget.textContent;
-	canStart = true
+	const selectedOption = event.currentTarget;
+	input.value = selectedOption.textContent;
+	// Сохраняем ссылку на выбранный элемент в data-attribute
+	selectedOptionId = selectedOption.id
+	canStart = true;
 };
 //the dropdown list to close when clicked outside of it
 // if dropdown list is in opened state
@@ -31,3 +35,13 @@ listOfOptions.forEach((option) => {
 });
 // dropdown toggle
 dropdown.addEventListener('click', toggleDropdown);
+
+// Функция для обновления значения input при смене языка
+function updateInputValue() {
+	if (selectedOptionId) {
+		const selectedOption = document.getElementById(selectedOptionId);
+		if (selectedOption) {
+			input.value = selectedOption.textContent;
+		}
+	}
+}

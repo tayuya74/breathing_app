@@ -33,6 +33,7 @@ function updateLanguage(language) {
 	input.placeholder = translations[language].selectDuration;
 	options[0].textContent = translations[language].option1;
 	options[1].textContent = translations[language].option2;
+	updateInputValue()
 }
 
 	// Обработчик переключения языка
