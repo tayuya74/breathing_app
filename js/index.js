@@ -36,7 +36,8 @@
 			startBreathingCycle(cycles);
 			dropdown.classList.remove("active");
 			stopButton.classList.add("active");
-			input.value = ''
+			input.value = null
+			selectedOptionId = null;
 		}
 		canStart = false;
   });
@@ -61,7 +62,7 @@
 				});
 			});
 		} else {
-			resetButton();
+			resetBreathing();
 		}
   }
 
@@ -79,7 +80,7 @@
     }, 1000);
   }
 
-  function resetButton() {
+  function resetBreathing() {
     startButton.classList.remove("start-button-active");
     startButton.textContent = translations[language].start;
 		dropdown.classList.add("active");
@@ -89,7 +90,7 @@
 
 	function stopBreathing() {
 		clearInterval(countdown);
-		resetButton();
+		resetBreathing();
 		startButton.classList.remove("start-button-inhale");
 		startButton.classList.remove("start-button-exhale");
 		stopAllSounds();
