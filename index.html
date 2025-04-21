@@ -33,13 +33,58 @@
 			<button class="start-button">старт</button>
 		</div>
 		<button class="stop-button">стоп</button>
+
+		<div class="stats-container">
+			<h3>Ваша статистика</h3>
+			<div class="stats-grid">
+				<div class="stat-card">
+					<div class="stat-value" id="totalSessions">0</div>
+					<div class="stat-label">Всего сеансов</div>
+				</div>
+				<div class="stat-card">
+					<div class="stat-value" id="totalMinutes">0</div>
+					<div class="stat-label">Минут</div>
+				</div>
+				<div class="stat-card">
+					<div class="stat-value" id="totalCycles">0</div>
+					<div class="stat-label">Циклов</div>
+				</div>
+			</div>
+			<div class="last-session">
+				Последний сеанс: <span id="lastSessionDate">не было</span>
+			</div>
+		</div>
   </div>
+
+
+	<!-- Firebase SDK -->
+	<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+  import { getFirestore, doc, setDoc, increment, collection, addDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+		const firebaseConfig = {
+			apiKey: "AIzaSyCzoQrymo_jLHHlMehaS7FJ-7lQrIDZfCc",
+			authDomain: "breath-e7030.firebaseapp.com",
+			databaseURL: "https://breath-e7030-default-rtdb.europe-west1.firebasedatabase.app",
+			projectId: "breath-e7030",
+			storageBucket: "breath-e7030.firebasestorage.app",
+			messagingSenderId: "780544276848",
+			appId: "1:780544276848:web:b0274a3224bd6570d837b5",
+		};
+	  const app = initializeApp(firebaseConfig);
+	  const db = getFirestore(app);
+		// Делаем переменные доступными глобально
+		window.firebase = {
+    db,
+    firestore: { doc, setDoc, increment, collection, addDoc, getDoc }
+  };
+	</script>
 
 	<!-- Аудио элементы для звуков дыхания -->
 	<audio id="inhaleSound" src="sounds/inhale.m4a" preload="auto"></audio>
 	<audio id="holdSound" src="sounds/hold.m4a" preload="auto"></audio>
 	<audio id="exhaleSound" src="sounds/exhale.mp3" preload="auto" ></audio>
 
+	<script src="js/firebase.js"></script>
 	<script src="js/translation.js"></script>
 	<script src="js/theme.js"></script>
 	<script src="js/dropdown.js"></script>

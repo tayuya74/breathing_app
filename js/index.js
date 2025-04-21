@@ -42,7 +42,7 @@
 		canStart = false;
   });
 
-  function startBreathingCycle(cycles) {
+  async function startBreathingCycle(cycles, cyclesForStat) {
     if (cycles > 0) {
 			startButton.classList.add("start-button-inhale");
 			exhaleSound.pause();
@@ -56,15 +56,34 @@
 					holdSound.pause();
 					playSound(exhaleSound);
 					runTimer(8, translations[language].exhale, () => {
-						startBreathingCycle(cycles - 1);
+						startBreathingCycle(cycles - 1, cyclesForStat ?? cycles);
 						startButton.classList.remove("start-button-exhale");
 					});
 				});
 			});
 		} else {
+			const durationMinutes = (cyclesForStat * 19) / 60; // Переводим в минуты
+			await saveSession(durationMinutes, cyclesForStat); // Сохраняем статистику
 			resetBreathing();
+			updateStatsUI(); // Обновляем интерфейс
 		}
   }
+
+	// Обновление интерфейса для вывода статистики
+	async function updateStatsUI() {
+		const stats = await loadStats();
+		if (!stats) return;
+
+		document.getElementById('totalSessions').textContent = stats.totalSessions || 0;
+		document.getElementById('totalMinutes').textContent = Math.round(stats.totalDuration) || 0;
+		document.getElementById('totalCycles').textContent = stats.totalCycles || 0;
+
+		// Для даты последней сессии
+		if (stats.lastSession) {
+			const lastDate = stats.lastSession.toDate().toLocaleDateString();
+			document.getElementById('lastSessionDate').textContent = lastDate;
+		}
+	}
 
   function runTimer(seconds, text, callback) {
     let timer = seconds;
